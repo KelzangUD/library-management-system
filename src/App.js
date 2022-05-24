@@ -9,7 +9,7 @@ import About from './pages/About';
 import Auth from './pages/Auth';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
-import Footer from './layout/Footer';
+// import Footer from './layout/Footer';
 
 
 
@@ -32,7 +32,7 @@ function App() {
                 <Route path='/*' element={<NotFound/>} />
             </Routes>
             </main>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
       </UserProvider>
