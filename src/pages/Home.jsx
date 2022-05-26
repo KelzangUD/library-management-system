@@ -1,12 +1,17 @@
 import { useContext } from "react";
 import BooksContext from "../context/bookContext/BooksContext";
 
+import Spinner from "../components/Spinner";
 import BookCard from "../ui/BookCard";
 
 const Home = ()=>{
-    const {booksData} =useContext(BooksContext);
+    const {booksData, isLoading} =useContext(BooksContext);
     // console.log(booksData)
-    return(
+    if(isLoading){
+        return <Spinner/>
+    }
+    
+    return (
         <div className="container">
             <div className="grid grid-cols-3 gap-3 pt-5 pb-5">
             {
@@ -18,7 +23,7 @@ const Home = ()=>{
             }
         </div>
         </div>
-    )
+    );
 }
 
 export default Home;

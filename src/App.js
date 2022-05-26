@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { BooksProvider } from './context/bookContext/BooksContext';
 import {UserProvider} from './context/userContext/UserContext';
 
 import Navbar from './layout/Navbar';
+import CreateAccount from './pages/CreateAccount';
 import Home from './pages/Home';
 import About from './pages/About';
-import Auth from './pages/Auth';
+import ForgotPassword from './pages/ForgotPassword';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
 // import Footer from './layout/Footer';
@@ -26,7 +29,8 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home/>} />
                 <Route path='/about' element={<About/>} />
-                <Route path='/auth' element={<Auth/>} />
+                <Route path='/signup' element={<CreateAccount/>} />
+                <Route path='/forgotPassword' element={<ForgotPassword/>} />
                 <Route path='/admin' element={<Admin/>} />
                 <Route path='/notfound' element={<NotFound/>} />
                 <Route path='/*' element={<NotFound/>} />
@@ -35,6 +39,7 @@ function App() {
             {/* <Footer /> */}
           </div>
         </Router>
+        <ToastContainer />
       </UserProvider>
     </BooksProvider>
   );

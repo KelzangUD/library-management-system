@@ -8,6 +8,7 @@ const BooksContext = createContext();
 
 export const BooksProvider = ({children})=>{
     const [booksData, setBooksData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(()=>{
         getDocs(collection(db,'books')).then((snapshot)=>{
             let results=[];
@@ -15,11 +16,13 @@ export const BooksProvider = ({children})=>{
                 results.push({id:book.id, ...book.data()})
             })
             setBooksData(results);
+            setIsLoading(false);
             // console.log(results);
         })
     },[])
     return(<BooksContext.Provider value={{
         booksData,
+        isLoading,
     }}>
         {children}
     </BooksContext.Provider>

@@ -1,12 +1,17 @@
-import { Link } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-toastify';
+
+
+import { Link,useNavigate } from 'react-router-dom';
 import Overlay from 'react-overlay-component';
 import { useState } from 'react';
 
 import {FaHome, FaUser} from 'react-icons/fa';
 
 const Navbar = ()=>{
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const [user, setUser]= useState({userName:'', password:''});
+    const [userDetail, setUserDetail]= useState({email:'', password:''});
 
     const closeOverlay = () => {
         setIsOpen(false);
@@ -15,11 +20,23 @@ const Navbar = ()=>{
     const handleChange = (e)=>{
         const name = e.target.name;
         const value = e.target.value;
-        setUser(values => ({...values, [name]: value}))
+        setUserDetail(values => ({...values, [name]: value}))
     }
-    const handleForm = (e)=>{
+    const {email, password} = userDetail;
+    const handleForm = async(e)=>{
         e.preventDefault();
-        console.log(user);
+        console.log(userDetail);
+        try{
+            const auth = getAuth();
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            if(userCredential.user){
+                closeOverlay();
+                navigate("/");
+            }
+        }
+        catch(err){
+            toast.error("Bad User Credential")
+        }
     }
     return (
         <nav className="flex items-center justify-between shadow-lg flex-wrap bg-gray-700 p-6">
@@ -41,10 +58,10 @@ const Navbar = ()=>{
                     <h1 className='text-2xl font-bold'>Log In Form</h1>
                 </div>
                 <div className="mb-4">
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name='userName' value={user.userName} type="text" placeholder='Enter Username' onChange={handleChange}/>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name='email' value={email} type="text" placeholder='Enter Username' onChange={handleChange}/>
                 </div>
                 <div className="mb-4">
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name='password' value={user.password} type="password" placeholder="Enter Password" onChange={handleChange}/>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" name='password' value={password} type="password" placeholder="Enter Password" onChange={handleChange}/>
                 </div>
                 <div className="grid justify-self-stretch">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
@@ -52,14 +69,12 @@ const Navbar = ()=>{
                     </button>
                 </div>
                 <div className="flex justify-center mb-4 mt-4">
-                    <p className="flex items-center items-center text-blue-600">Forgot Password?</p>
+                    <Link to='/forgotPassword' className="flex items-center items-center text-blue-600" onClick={closeOverlay}>Forgot Password?</Link>
                 </div>
                 <hr/>
                 <div className="mt-4">
                 <div className="flex justify-center">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Create New Account
-                    </button>
+                    <Link onClick={closeOverlay} to='/signup' className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create New Account</Link>
                 </div>
                 </div>
             </form>
