@@ -1,6 +1,6 @@
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {db} from '../firebase.config';
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { setDoc, doc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 import { Link, useNavigate } from "react-router-dom";
@@ -40,7 +40,10 @@ const CreateAccount = ()=>{
             navigate("/");
         }
         catch(err){
-            toast.error('Registration Failed')
+            // console.log(err.message);
+            let message = err.message==='Firebase: Error (auth/email-already-in-use).'?'User Already Exist for this Email':'Registration Failed';
+            toast.error(message);
+
         }
     }
 
