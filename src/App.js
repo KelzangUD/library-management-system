@@ -9,6 +9,7 @@ import Navbar from './layout/Navbar';
 import CreateAccount from './pages/CreateAccount';
 import Home from './pages/Home';
 import About from './pages/About';
+import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
 import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/' element={<Home/>} />
                 <Route path='/about' element={<About/>} />
                 <Route path='/signup' element={<CreateAccount/>} />
+                <Route path='/profile' element={<Profile/>} />
                 <Route path='/forgotPassword' element={<ForgotPassword/>} />
                 <Route path='/admin' element={<Admin/>} />
                 <Route path='/notfound' element={<NotFound/>} />
