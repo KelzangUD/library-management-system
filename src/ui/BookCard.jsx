@@ -1,23 +1,13 @@
-import {FaBook, FaPen, FaLanguage} from 'react-icons/fa';
-import {MdCategory} from 'react-icons/md'
+import { Link} from 'react-router-dom';
 
 const BookCard = ({data})=>{
-    // console.log("Book Card")
-    console.log(data);
+    const bookTitle = data.title;
+    // console.log(data.id);
     return(
-        <div className="max-w-sm bg-white-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-5">
-                <h1><FaBook/> Title: {data.title}</h1>
-            </div>
-            <div className='p-5'>
-                <h1><FaPen/> Authors: {data.authors.map((item)=>item)}</h1>
-            </div>
-            <div className='p-5'>
-                <h1><MdCategory/> Category: {data.categories}</h1>
-            </div>
-            <div className='p-5'>
-                <h1><FaLanguage/> Language: {data.language}</h1>
-            </div>
+        <div>
+            <Link to={`/book/${bookTitle}`} state={{id: data.id}}>
+            <img src={data.imageUrl} alt={data.title} style={{height:"200px", width:"150px"}}/>
+            </Link>
         </div>
     )
 }

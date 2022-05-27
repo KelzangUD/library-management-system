@@ -13,7 +13,7 @@ const Home = ()=>{
     
     return (
         <div className="container">
-            <div className="grid grid-cols-3 gap-3 pt-5 pb-5">
+            <div className="grid grid-cols-6 gap-5 pt-5 pb-5">
             {
                 booksData.map((book)=>(
                     <div key={book.id}>

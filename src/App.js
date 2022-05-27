@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound';
 
 
 import './App.css';
+import Book from './pages/Book';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <main className="container mx-auto px-3 pd-12">
             <Routes>
                 <Route path='/' element={<Home/>} />
+                <Route path='/book/:title' element={<Book/>} />
                 <Route path='/about' element={<About/>} />
                 <Route path='/signup' element={<CreateAccount/>} />
                 <Route path='/profile' element={<Profile/>} />
