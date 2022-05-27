@@ -9,7 +9,6 @@ import { useState } from 'react';
 
 import {FaHome, FaUser} from 'react-icons/fa';
 import {IoMdNotifications} from 'react-icons/io';
-import {MdArrowDropDownCircle} from 'react-icons/md'
 
 const Navbar = ()=>{
     const navigate = useNavigate();
@@ -40,9 +39,6 @@ const Navbar = ()=>{
         catch(err){
             toast.error("Bad User Credential")
         }
-    }
-    const profileHandle = ()=>{
-        navigate("/profile");
     }
 
     let signInButton = (
@@ -102,8 +98,7 @@ const Navbar = ()=>{
                 <button className='btn btn-ghost btn-sm-rounded-bth'><IoMdNotifications className='inline pr-2 text-3xl'/></button>
                 </div>
                 <div className='mr-6'>
-                <button  className='btn btn-ghost btn-sm-rounded-bth'><MdArrowDropDownCircle className='inline pr-2 text-3xl'/></button>
-                {/* creating drop down */}
+                <Link to='/profile'  className='btn btn-ghost btn-sm-rounded-bth'><FaUser className='inline pr-2 text-3xl'/></Link>
                 </div>
             </div>
             </nav>
