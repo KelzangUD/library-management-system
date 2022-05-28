@@ -2,45 +2,51 @@ import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { useLocation } from 'react-router-dom';
 
+import Reviews from '../components/Reviews';
+import BookDetails from '../components/BookDetails';
+import BookImage from '../components/BookImage';
+
 import { useState, useEffect } from 'react';
 
 const Book = ()=>{
-    const [bookData, setBooksData] = useState([]);
+    const [bookData, setBooksData] = useState({
+        authors: [],
+        available:false,
+        averageRating:0,
+        categories: '',
+        description: '',
+        imageUrl:'',
+        reviews: [],
+        title: '',
+    });
     const location = useLocation()
     const { id } = location.state;
-    // console.log(`id value for book is ${id}`);
+    console.log(`id value for book is ${id}`);
 
-    const docRef = doc(db, 'books', id);
     useEffect(()=>{
-        getDoc(docRef).then((doc)=>{
-            // console.log(doc.data());
+        getDoc(doc(db, 'books', id)).then((doc)=>{
+            console.log(doc);
             setBooksData(doc.data());
         })
     },[])
-    console.log(bookData);
+    console.table(bookData);
+    let {imageUrl, title} = bookData;
+
     return (
-        <div className='container grid grid-cols-2 pt-5'>
-            <div>
-                <img src={bookData.imageUrl} alt={bookData.title}/>
+            <div className='container grid pt-5 pb-5'>
+                <div className='flex'>
+                    <div className='border-2 basis-1/4'>
+                        <BookImage imageUrl={imageUrl} alt={title} />
+                    </div>
+                    <div className='mx-8 basis-3/4'>
+                        <BookDetails bookData= {bookData}/>
+                    </div>
+                </div>
+                <hr className='my-5'/>
+                <div>
+                    <Reviews bookData={bookData}/>
+                </div>
             </div>
-            <div>
-                <header>
-                <h1>Title: {bookData.title}</h1>
-                <p>Authors: {bookData.authors.map((item)=>(
-                    <span>{item}</span>
-                ))}</p>
-                <p>Category: {bookData.categories}</p>
-                <p>Publisher: {bookData.publisher}</p>
-                <p>Published Date: {bookData.publishedDate}</p>
-                </header>
-                <main>
-                    <p>Description:</p>
-                    <p>{bookData.description}</p>
-                    <p>Average Rating: {bookData.averageRating}</p>
-                    <button>Check Reviews</button>
-                </main>
-            </div>
-        </div>
     )
 }
 export default Book;
