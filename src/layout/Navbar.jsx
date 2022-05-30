@@ -27,7 +27,7 @@ const Navbar = ()=>{
     const {email, password} = userDetail;
     const handleForm = async(e)=>{
         e.preventDefault();
-        console.log(userDetail);
+        // console.log(userDetail);
         try{
             const auth = getAuth();
             const userCredential = await signInWithEmailAndPassword(auth, email, password);

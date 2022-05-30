@@ -1,6 +1,6 @@
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {db} from '../firebase.config';
-import { setDoc, doc, serverTimestamp, getDoc } from 'firebase/firestore';
+import { setDoc, doc, serverTimestamp} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 import { Link, useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ const CreateAccount = ()=>{
     }
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
         try{
             const auth = getAuth();
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);

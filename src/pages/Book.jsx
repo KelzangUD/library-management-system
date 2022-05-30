@@ -21,15 +21,15 @@ const Book = ()=>{
     });
     const location = useLocation()
     const { id } = location.state;
-    console.log(`id value for book is ${id}`);
+    // console.log(`id value for book is ${id}`);
 
     useEffect(()=>{
         getDoc(doc(db, 'books', id)).then((doc)=>{
-            console.log(doc);
+            // console.log(doc);
             setBooksData(doc.data());
         })
     },[])
-    console.table(bookData);
+    // console.table(bookData);
     let {imageUrl, title} = bookData;
 
     return (
@@ -39,7 +39,7 @@ const Book = ()=>{
                         <BookImage imageUrl={imageUrl} alt={title} />
                     </div>
                     <div className='mx-8 basis-3/4'>
-                        <BookDetails bookData= {bookData}/>
+                        <BookDetails bookData= {bookData} id={id}/>
                     </div>
                 </div>
                 <hr className='my-5'/>
