@@ -1,10 +1,11 @@
-import { getDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase.config';
 import { useLocation } from 'react-router-dom';
 
 import Reviews from '../components/Reviews';
 import BookDetails from '../components/BookDetails';
 import BookImage from '../components/BookImage';
+
+import BooksServices from '../services/BooksServices';
+import { toast } from 'react-toastify';
 
 import { useState, useEffect } from 'react';
 
@@ -22,13 +23,21 @@ const Book = ()=>{
     const location = useLocation()
     const { id } = location.state;
     // console.log(`id value for book is ${id}`);
-
-    useEffect(()=>{
-        getDoc(doc(db, 'books', id)).then((doc)=>{
-            // console.log(doc);
-            setBooksData(doc.data());
-        })
-    },[])
+    useEffect(() => {
+        console.log("The id here is : ", id);
+        if (id !== undefined && id !== "") {
+          getBook();
+        }
+      }, [id]);
+      const getBook = async () => {
+        try {
+          const response = await BooksServices.getBook(id);
+        //   console.log("the record is :", response.data());
+          setBooksData(response.data());
+        } catch (err) {
+          toast.error("Error fetching book details")
+        }
+      };
     // console.table(bookData);
     let {imageUrl, title} = bookData;
 

@@ -1,28 +1,32 @@
 import {db} from '../firebase.config';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { doc,collection, addDoc} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 
 import {useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 
-const BookingOverlay = ({id})=>{
+const BookingOverlay = ({id,title,authors,categories,user})=>{
     const [isOpen, setIsOpen] = useState(false);
     const [requestFormData, setRequestFormData] = useState({
+        id:{},
+        title: '',
+        authors: [],
+        categories:'',
         date: '',
         urgency:'',
         comment:'',
     })
     const {comment} = requestFormData;
     const auth = getAuth();
-    let user =auth.currentUser.email; 
+    // let user =auth.currentUser.email; 
     const navaigate = useNavigate();
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
-
     today = yyyy + '-' +mm+ '-' + dd;
+    
     const cancleHandle = (e)=>{
         e.preventDefault();
         setIsOpen(false);
@@ -38,27 +42,35 @@ const BookingOverlay = ({id})=>{
     }
     const handleForm = async(e)=>{
         e.preventDefault();
+        requestFormData.id = id;
         requestFormData.user = user;
+        requestFormData.title=title;
+        requestFormData.authors = authors;
+        requestFormData.categories=categories;
         if(requestFormData.comment===''||requestFormData.date===''||requestFormData.urgency===''){
             toast.error("Some details are missing");
         }
         else{
+            // console.log(requestFormData);
+            const {id, title, authors, categories, user, date, urgency, comment} = requestFormData;
             try{
-                const bookRef = doc(db, "books",id);
-                const docSnap = await getDoc(bookRef);
-                let data = docSnap.data().bookRequest;
-                // console.log(data);
-                let newData = data.concat(requestFormData);
-                // console.log(newData);
-                await updateDoc(bookRef,{
-                    bookRequest:newData,
-                })
+                const docRef = await addDoc(collection(db, "bookRequest"), {
+                    id,
+                    title,
+                    authors,
+                    categories,
+                    user,
+                    date,
+                    urgency,
+                    comment,
+                  });
+                  console.log("Document written with ID: ", docRef.id);
                 toast.success('You have successfully requested for a book');
                 closeOverlay();
                 navaigate("/");       
             }
             catch(err){
-                console.error(err);
+                console.log(err);
                 toast.error("Faild to request a book");
             }
         }
@@ -71,7 +83,7 @@ const BookingOverlay = ({id})=>{
                 </div>
                 <div className="mb-4 mt-4">
                     <p className='text-xl'>Select a date</p>
-                    <input onChange={onChangeHandle} name="date"  className='bg-gray-50 border border-gray-300' type="date" min="2022-05-30"/>
+                    <input onChange={onChangeHandle} name="date"  className='bg-gray-50 border border-gray-300' type="date" min={today}/>
                 </div>
                 <div className="mb-4 mt-4">
                     <p className='text-xl'>Urgency</p>
