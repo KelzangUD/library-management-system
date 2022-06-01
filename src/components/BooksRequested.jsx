@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BooksServices from '../services/BooksServices';
+import { Link } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
@@ -8,8 +9,9 @@ import {MdDelete} from 'react-icons/md';
 
 const BooksRequested = ({auth})=>{
     const [bookRequestedData, setBookRequestedData] = useState([]);
+
     const user = auth.currentUser.email;
-    console.log(user);
+    // console.log(user);
     useEffect(() => {
         getBookRequestedDetails();
       },[]);
@@ -23,16 +25,12 @@ const BooksRequested = ({auth})=>{
           toast.error("Error fetching book requested details")
         }
       };
-    // console.log("book requested")
-    // console.log(bookRequestedData);
     const booksRequest = [];
     bookRequestedData.map((item)=>{
         if(item.user===user){
-            booksRequest.push(item);
+           booksRequest.push(item);
         }
     })
-    console.log("book requested by user")
-    console.log(booksRequest);
     const deleteRequest = async(id)=>{
         await BooksServices.deleteBookRequest(id);
         getBookRequestedDetails();
@@ -61,7 +59,7 @@ const BooksRequested = ({auth})=>{
                                 <td className="px-6 py-4">{item.date}</td>
                                 <td className="px-6 py-4">{item.urgency}</td>
                                 <td className="px-6 py-4 flex">
-                                    <button className='flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2'><FaEdit/>Edit</button>
+                                    <Link to="/editBookRequest" state={{id: item.id, title:item.title, date: item.date, urgency:item.urgency, comment:item.comment}} className='flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2'><FaEdit/>Edit</Link>
                                     <button onClick={()=>deleteRequest(item.id)} className='flex items-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2'><MdDelete/>Delete</button>
                                 </td>
                             </tr>

@@ -12,6 +12,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
 import Admin from './pages/Admin';
+import EditBookRequest from './components/EditBookRequest';
 import NotFound from './pages/NotFound';
 // import Footer from './layout/Footer';
 
@@ -35,6 +36,7 @@ function App() {
                 <Route path='/signup' element={<CreateAccount/>} />
                 <Route path='/profile' element={<Profile/>} />
                 <Route path='/forgotPassword' element={<ForgotPassword/>} />
+                <Route path='/editBookRequest' element={<EditBookRequest/>} />
                 <Route path='/admin' element={<Admin/>} />
                 <Route path='/notfound' element={<NotFound/>} />
                 <Route path='/*' element={<NotFound/>} />

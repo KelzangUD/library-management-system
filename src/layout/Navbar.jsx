@@ -48,7 +48,7 @@ const Navbar = ()=>{
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto text-white font-bold">
                 <div className="text-sm lg:flex-grow">
-                <Link to='/' className='btn btn-ghost btn-sm-rounded-bth pr-4 text-xl'>HOME</Link>
+                {/* <Link to='/' className='btn btn-ghost btn-sm-rounded-bth pr-4 text-xl'>HOME</Link> */}
                 <Link to='/about' className='btn btn-ghost btn-sm-rounded-bth text-xl'>ABOUT</Link>
                 </div>
                 <div>
@@ -91,7 +91,7 @@ const Navbar = ()=>{
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto text-white font-bold">
                 <div className="text-sm lg:flex-grow">
-                <Link to='/' className='btn btn-ghost btn-sm-rounded-bth pr-4 text-xl'>HOME</Link>
+                {/* <Link to='/' className='btn btn-ghost btn-sm-rounded-bth pr-4 text-xl'>HOME</Link> */}
                 <Link to='/about' className='btn btn-ghost btn-sm-rounded-bth text-xl'>ABOUT</Link>
                 </div>
                 <div className='mr-6'>

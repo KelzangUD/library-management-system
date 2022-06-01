@@ -23,26 +23,16 @@ const BookDetails = ({bookData, id})=>{
     // console.log("login Status: " + loggedIn);
     // console.log(bookData); 
     useEffect(()=>{
-        if(loggedIn===true){
-            setUser(auth.currentUser.email)
-        }
-        else{
-            setUser("Not logged in");
-        }
+        setUser((loggedIn===true)?auth.currentUser.email:"Not logged in")
     },[loggedIn])
 
     // console.log(user);
     const bookHandle = ()=>{
-        if(loggedIn){
-            setIsOpen(true);
-        }
-        else{
-            toast.error('Please sign in to book an item');
-        }
+        loggedIn?setIsOpen(true):toast.error('Please sign in to book an item');
     }
     const closeOverlay = () => {
         setIsOpen(false);
-      };
+    };
       const configs = {
         animate: true,
         escapeDismiss: true,
@@ -81,12 +71,8 @@ const BookDetails = ({bookData, id})=>{
             users.push(item.user);
         }
     })
-    // let {bookRequest} = data;
-    // bookRequest?.forEach(element => {
-    //     users.push(element.user);  
-    // });
-    console.log("users")
-    console.log(users);
+    // console.log("users")
+    // console.log(users);
     return (
         <div key={id}>
             <header>

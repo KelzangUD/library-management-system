@@ -34,6 +34,10 @@ class BookDataService {
     const bookDoc = doc(db, "bookRequest", id);
     return deleteDoc(bookDoc);
   };
+  updateBookRequested = (id, updatedBookRequest) => {
+    const bookDoc = doc(db, "bookRequest", id);
+    return updateDoc(bookDoc, updatedBookRequest);
+  };
 }
 
 export default new BookDataService();
