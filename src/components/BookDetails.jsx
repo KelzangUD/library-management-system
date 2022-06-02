@@ -16,17 +16,12 @@ const BookDetails = ({bookData, id})=>{
     const [bookRequestedData, setBookRequestedData]=useState([]);
     const [user, setUser] = useState('');
     const auth = getAuth();
-    // console.log(auth);
    
     let {authors, available, averageRating,categories,description, publishedDate,publisher, title} = bookData;
-    const {loggedIn} = useAuthStatus();
-    // console.log("login Status: " + loggedIn);
-    // console.log(bookData); 
+    const {loggedIn} = useAuthStatus(); 
     useEffect(()=>{
         setUser((loggedIn===true)?auth.currentUser.email:"Not logged in")
     },[loggedIn])
-
-    // console.log(user);
     const bookHandle = ()=>{
         loggedIn?setIsOpen(true):toast.error('Please sign in to book an item');
     }
@@ -38,7 +33,6 @@ const BookDetails = ({bookData, id})=>{
         escapeDismiss: true,
     };
     useEffect(() => {
-        // console.log("The id here is : ", id);
         if (id !== undefined && id !== "") {
           getBook();
           getBookRequestedDetails();
@@ -47,7 +41,6 @@ const BookDetails = ({bookData, id})=>{
       const getBook = async () => {
         try {
           const response = await BooksServices.getBook(id);
-        //   console.log("the record is :", response.data());
           setData(response.data());
         } catch (err) {
           toast.error("Error fetching book details")
@@ -56,23 +49,17 @@ const BookDetails = ({bookData, id})=>{
       const getBookRequestedDetails = async () => {
         try {
           const response = await BooksServices.getRequestedBookDetail();
-        //   console.log(response.docs);
           setBookRequestedData(response.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         } catch (err) {
-            // console.log(err);
             toast.error("Error fetching book requested details")
         }
       };
-    // console.log("book requested data")
-    // console.log(bookRequestedData);
     let users = [];
     bookRequestedData.map((item)=>{
         if(item.title===title){
             users.push(item.user);
         }
     })
-    // console.log("users")
-    // console.log(users);
     return (
         <div key={id}>
             <header>

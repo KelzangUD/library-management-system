@@ -25,11 +25,12 @@ function App() {
   return (
     <BooksProvider>
       <UserProvider>
+        <div>
         <Router>
-          <div>
-            <Navbar/>
+        <Navbar/>
             <main className="container mx-auto px-3 pd-12">
             <Routes>
+                <Route path='/admin' element={<Admin/>} />
                 <Route path='/' element={<Home/>} />
                 <Route path='/book/:title' element={<Book/>} />
                 <Route path='/about' element={<About/>} />
@@ -37,14 +38,13 @@ function App() {
                 <Route path='/profile' element={<Profile/>} />
                 <Route path='/forgotPassword' element={<ForgotPassword/>} />
                 <Route path='/editBookRequest' element={<EditBookRequest/>} />
-                <Route path='/admin' element={<Admin/>} />
                 <Route path='/notfound' element={<NotFound/>} />
                 <Route path='/*' element={<NotFound/>} />
+            {/* <Footer /> */}
             </Routes>
             </main>
-            {/* <Footer /> */}
-          </div>
         </Router>
+        </div>
         <ToastContainer />
       </UserProvider>
     </BooksProvider>

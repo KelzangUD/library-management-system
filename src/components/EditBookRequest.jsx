@@ -1,4 +1,3 @@
-
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import { useEffect, useRef } from "react";
 import BooksServices from "../services/BooksServices";
@@ -16,12 +15,7 @@ const EditBookRequest = ()=>{
     const option1 = useRef();
     const option2 = useRef();
     const option3 = useRef();
-    let updateDate = {
-        date,
-        urgency,
-        comment, 
-    }
-    
+    let updateDate = {date,urgency,comment, }
     useEffect(()=>{
         switch(urgency){
             case "very urgent":
@@ -51,9 +45,6 @@ const EditBookRequest = ()=>{
             console.log(err);
             toast.error("Failed to update Details")
         }
-        console.log(id);
-        console.log(updateDate);
-
     }
 
     return (

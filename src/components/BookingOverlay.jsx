@@ -1,5 +1,5 @@
 import {db} from '../firebase.config';
-import { doc,collection, addDoc} from 'firebase/firestore';
+import { collection, addDoc} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 
@@ -18,12 +18,11 @@ const BookingOverlay = ({id,title,authors,categories,user})=>{
         comment:'',
     })
     const {comment} = requestFormData;
-    const auth = getAuth();
     // let user =auth.currentUser.email; 
     const navaigate = useNavigate();
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
     today = yyyy + '-' +mm+ '-' + dd;
     

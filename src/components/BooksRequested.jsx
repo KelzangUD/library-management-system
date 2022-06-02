@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import BooksServices from '../services/BooksServices';
 import { Link } from 'react-router-dom';
-
-import { toast } from 'react-toastify';
 
 import {FaEdit} from 'react-icons/fa';
 import {MdDelete} from 'react-icons/md';
 
 const BooksRequested = ({auth})=>{
     const [bookRequestedData, setBookRequestedData] = useState([]);
-
     const user = auth.currentUser.email;
-    // console.log(user);
-    useEffect(() => {
+    const booksRequest = [];
+    useEffect(()=>{
         getBookRequestedDetails();
-      },[]);
+    })
     const getBookRequestedDetails = async () => {
         try {
           const response = await BooksServices.getRequestedBookDetail();
@@ -22,10 +19,8 @@ const BooksRequested = ({auth})=>{
           setBookRequestedData(response.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         } catch (err) {
             console.log(err);
-          toast.error("Error fetching book requested details")
         }
       };
-    const booksRequest = [];
     bookRequestedData.map((item)=>{
         if(item.user===user){
            booksRequest.push(item);
