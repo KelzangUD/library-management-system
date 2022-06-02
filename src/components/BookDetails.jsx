@@ -2,7 +2,6 @@ import {useAuthStatus} from '../hooks/useAuthStatus';
 import { getAuth } from 'firebase/auth';
 import {useState, useEffect} from 'react';
 
-
 import { toast } from 'react-toastify';
 import Overlay from 'react-overlay-component';
 import BookingOverlay from './BookingOverlay.jsx';
@@ -71,7 +70,7 @@ const BookDetails = ({bookData, id})=>{
             <main>
                 <p>{description}</p>
             </main>
-            <hr className='my-2'/>
+            <hr className='my-2'/>  
             <div className='flex items-center'>
                 <p className='mx-2'><span className='text-slate-500'>Category:</span> {categories}</p>
                 <p className='mx-2'><span className='text-slate-500'>Publisher:</span> {publisher}</p>

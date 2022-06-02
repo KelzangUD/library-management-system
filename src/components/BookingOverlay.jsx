@@ -1,13 +1,14 @@
 import {db} from '../firebase.config';
 import { collection, addDoc} from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { getAuth } from 'firebase/auth';
 
 import {useNavigate} from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import BooksContext from '../context/bookContext/BooksContext';
 
 const BookingOverlay = ({id,title,authors,categories,user})=>{
     const [isOpen, setIsOpen] = useState(false);
+    const {today} = useContext(BooksContext);
     const [requestFormData, setRequestFormData] = useState({
         id:{},
         title: '',
@@ -20,12 +21,6 @@ const BookingOverlay = ({id,title,authors,categories,user})=>{
     const {comment} = requestFormData;
     // let user =auth.currentUser.email; 
     const navaigate = useNavigate();
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-    today = yyyy + '-' +mm+ '-' + dd;
-    
     const cancleHandle = (e)=>{
         e.preventDefault();
         setIsOpen(false);

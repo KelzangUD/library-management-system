@@ -9,11 +9,13 @@ import { useState } from 'react';
 
 import {FaHome, FaUser} from 'react-icons/fa';
 import {IoMdNotifications} from 'react-icons/io';
+import Notification from '../components/Notification';
 
 const Navbar = ()=>{
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [userDetail, setUserDetail]= useState({email:'', password:''});
+    const [notification, setNotification] = useState(false);
 
     const closeOverlay = () => {
         setIsOpen(false);
@@ -39,6 +41,10 @@ const Navbar = ()=>{
         catch(err){
             toast.error("Bad User Credential")
         }
+    }
+    const notificationHandle = ()=>{
+        console.log("Notification Clicked");
+        setNotification(prevState=>!prevState);
     }
 
     let signInButton = (
@@ -95,7 +101,11 @@ const Navbar = ()=>{
                 <Link to='/about' className='btn btn-ghost btn-sm-rounded-bth text-xl'>ABOUT</Link>
                 </div>
                 <div className='mr-6'>
-                <button className='btn btn-ghost btn-sm-rounded-bth'><IoMdNotifications className='inline pr-2 text-3xl'/></button>
+                <button onClick={notificationHandle} className='btn btn-ghost btn-sm-rounded-bth'><IoMdNotifications className='inline pr-2 text-3xl'/></button>
+                {/* notifcation section */}
+                {
+                    notification && <Notification /> 
+                }
                 </div>
                 <div className='mr-6'>
                 <Link to='/profile'  className='btn btn-ghost btn-sm-rounded-bth'><FaUser className='inline pr-2 text-3xl'/></Link>

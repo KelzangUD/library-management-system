@@ -1,17 +1,16 @@
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import BooksServices from "../services/BooksServices";
 import { toast } from "react-toastify";
+
+import BooksContext from "../context/bookContext/BooksContext";
 
 const EditBookRequest = ()=>{
     const location = useLocation();
     const navigate = useNavigate();
     const { id,title,date,urgency,comment } = location.state;
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
-    today = yyyy + '-' +mm+ '-' + dd;
+    const {today} = useContext(BooksContext);
+    console.log("Today is " + today);
     const option1 = useRef();
     const option2 = useRef();
     const option3 = useRef();
