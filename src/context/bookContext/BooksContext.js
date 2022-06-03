@@ -42,7 +42,7 @@ export const BooksProvider = ({children})=>{
       const getAllNotifications = async()=>{
         const response = await NotificationService.getAllNotification();
         setNotifications(response.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }
+        }
     const notificationDetails = [];
     notifications.map(item=>{
         if(item.user ===user && item.read===false){
