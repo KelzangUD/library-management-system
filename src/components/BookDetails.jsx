@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 
 import { toast } from 'react-toastify';
 import Overlay from 'react-overlay-component';
-import BookingOverlay from './BookingOverlay.jsx';
+import BookingOverlay from './overlays/BookingOverlay';
 import BooksServices from '../services/BooksServices';
 
 import {FaStar, FaBookmark} from 'react-icons/fa';

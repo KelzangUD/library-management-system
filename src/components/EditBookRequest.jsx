@@ -10,7 +10,6 @@ const EditBookRequest = ()=>{
     const navigate = useNavigate();
     const { id,title,date,urgency,comment } = location.state;
     const {today} = useContext(BooksContext);
-    console.log("Today is " + today);
     const option1 = useRef();
     const option2 = useRef();
     const option3 = useRef();

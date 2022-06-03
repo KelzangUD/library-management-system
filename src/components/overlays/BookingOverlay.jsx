@@ -1,10 +1,10 @@
-import {db} from '../firebase.config';
+import { db } from '../../firebase.config';
 import { collection, addDoc} from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 import {useNavigate} from 'react-router-dom';
 import { useState, useContext } from 'react';
-import BooksContext from '../context/bookContext/BooksContext';
+import BooksContext from '../../context/bookContext/BooksContext';
 
 const BookingOverlay = ({id,title,authors,categories,user})=>{
     const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,6 @@ const BookingOverlay = ({id,title,authors,categories,user})=>{
         comment:'',
     })
     const {comment} = requestFormData;
-    // let user =auth.currentUser.email; 
     const navaigate = useNavigate();
     const cancleHandle = (e)=>{
         e.preventDefault();
